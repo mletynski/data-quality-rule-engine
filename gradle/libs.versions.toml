@@ -1,0 +1,34 @@
+# Gradle "version catalog": the single place where dependency coordinates and
+# versions are declared. Modules then refer to them by alias (libs.spring.expression)
+# instead of repeating a group:artifact:version string.
+#
+# Why bother with only two modules? Because a version that appears twice will
+# eventually disagree with itself, and because a reviewer can see every third-party
+# dependency this project has by reading one 30-line file.
+
+[versions]
+# Spring Framework ships spring-expression (SpEL) -- the rule expression language.
+springFramework = "7.0.9"
+# Spring Boot is used ONLY by the example host module. It also supplies that module's
+# JSON library, which is why no Jackson version appears here: the library itself has no
+# JSON dependency at all.
+springBoot = "4.1.1"
+junit = "6.1.3"
+assertj = "3.27.7"
+
+[libraries]
+spring-expression = { module = "org.springframework:spring-expression", version.ref = "springFramework" }
+
+# A "BOM" (Bill of Materials) is a published list of versions that belong together.
+# We import it and then declare the individual artifacts *without* versions, so the
+# BOM keeps them mutually consistent.
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
