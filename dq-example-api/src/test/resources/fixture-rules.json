@@ -1,0 +1,41 @@
+[
+  {
+    "id": "countryBlocked",
+    "label": "Country is on the blocked list",
+    "status": "RELEASED",
+    "severity": "ERROR",
+    "country": "WORLD",
+    "categories": ["compliance"],
+    "value": "country == 'ZZ' ? 'blocked' : 'ok'",
+    "mapping": {
+      "cases": { "blocked": "INVALID" },
+      "default": "NOT_APPLICABLE"
+    }
+  },
+  {
+    "id": "vatFormat",
+    "label": "VAT id is present and long enough",
+    "status": "RELEASED",
+    "severity": "ERROR",
+    "country": "WORLD",
+    "categories": ["tax"],
+    "value": "vatId != null and vatId.length() >= 9 ? 'ok' : 'bad'",
+    "mapping": {
+      "cases": { "ok": "VALID", "bad": "INVALID" },
+      "default": "REVIEW"
+    }
+  },
+  {
+    "id": "ibanFormat",
+    "label": "IBAN starts with the record's country",
+    "status": "RELEASED",
+    "severity": "WARNING",
+    "country": "WORLD",
+    "categories": ["bank"],
+    "value": "iban != null and country != null and iban.startsWith(country) ? 'ok' : 'bad'",
+    "mapping": {
+      "cases": { "ok": "VALID", "bad": "INVALID" },
+      "default": "REVIEW"
+    }
+  }
+]

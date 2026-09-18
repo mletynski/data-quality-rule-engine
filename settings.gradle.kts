@@ -10,6 +10,7 @@ rootProject.name = "data-quality-rule-engine"
 // an embedded Tomcat, or Spring Boot auto-configuration into a host that only
 // wants to validate records (e.g. a batch worker or a scheduled job).
 include("dq-engine")
+include("dq-example-api")
 
 dependencyResolutionManagement {
     // Declare repositories in exactly one place. FAIL_ON_PROJECT_REPOS makes it a
